@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+  <!-- 1. 创建service以下的spring容器  (父容器)-->
+  <listener>
+ 	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>  
+  <context-param>
+  	<param-name>contextConfigLocation</param-name>
+  	<param-value>classpath:spring.xml</param-value>
+  </context-param>
+  
+  <!-- 2. 创建springmvc容器 (子容器)-->
+  <servlet>
+  	<servlet-name>mvc</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	<init-param>
+  		<param-name>contextConfigLocation</param-name>
+  		<param-value>classpath:springmvc.xml</param-value>
+  	</init-param>
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>mvc</servlet-name>
+  	<url-pattern>/</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 3. 配置字符编码过滤器 -->
+  <filter>
+  	<filter-name>encoding</filter-name>
+  	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+  	<init-param>
+  		<param-name>encoding</param-name>
+  		<param-value>utf-8</param-value>
+  	</init-param>
+  </filter>
+  <filter-mapping>
+  	<filter-name>encoding</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- 2. 配置web包中路径-->
+  <filter>
+  	<filter-name>AdminFilter</filter-name>
+  	<filter-class>com.xx.web.AdminFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>AdminFilter</filter-name>
+  	<url-pattern>/admin/*</url-pattern>
+  </filter-mapping>
+  <servlet>
+  	<servlet-name>AdminLogin</servlet-name>
+  	<servlet-class>com.xx.web.AdminLogin</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AdminLogin</servlet-name>
+  	<url-pattern>/login</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>AdminServlet</servlet-name>
+  	<servlet-class>com.xx.web.AdminServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AdminServlet</servlet-name>
+  	<url-pattern>/admin/all</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>BeginServlet</servlet-name>
+  	<servlet-class>com.xx.web.BeginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>BeginServlet</servlet-name>
+  	<url-pattern>/admin/begin</url-pattern>
+  </servlet-mapping>
+  
+  <filter>
+  	<filter-name>IndexFilter</filter-name>
+  	<filter-class>com.xx.web.IndexFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>IndexFilter</filter-name>
+  	<url-pattern>/racer/index.jsp</url-pattern>
+  </filter-mapping>
+  
+  <filter>
+  	<filter-name>RacerFilter</filter-name>
+  	<filter-class>com.xx.web.RacerFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>RacerFilter</filter-name>
+  	<url-pattern>/racer/racer.jsp</url-pattern>
+  </filter-mapping>
+ 
+  <servlet>
+  	<servlet-name>RaceServlet</servlet-name>
+  	<servlet-class>com.xx.web.RaceServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>RaceServlet</servlet-name>
+  	<url-pattern>/race</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>RegisterServlet</servlet-name>
+  	<servlet-class>com.xx.web.RegisterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>RegisterServlet</servlet-name>
+  	<url-pattern>/register</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>SitdownServlet</servlet-name>
+  	<servlet-class>com.xx.web.SitdownServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>SitdownServlet</servlet-name>
+  	<url-pattern>/sitdown</url-pattern>
+  </servlet-mapping> 
+  
+</web-app>

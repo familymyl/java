@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd" >
+<log4j:configuration>
+	<!-- ===================================================================== -->
+	<!-- 以下是appender的定义，定义日志输出的目的地、输出方式及过滤级别 -->
+	<!-- ===================================================================== -->
+	<!-- 输出目标是文件： -->
+	<appender name="sample-log" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="/logs/log4j-study.log" />
+		<param name="encoding" value="utf-8" />
+		<param name="datePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c{1}] %m%n" />
+		</layout>
+	</appender>
+
+	<!-- 输出目标是控制台 -->
+	<appender name="sample-log-console" class="org.apache.log4j.ConsoleAppender">
+		<param name="encoding" value="utf-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %5p %c - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- ===================================================================== -->
+	<!-- 日志写出器：每一个logger可以有多个输出目的地和输出方式 -->
+	<!-- ===================================================================== -->
+	<!-- 调试MyBatis SQL例子：-->
+	
+	<!-- name 要输出日志的 包名+类名  -->
+	<logger name="com.xx.mapper.ProgramWithQuestionMapper" additivity="false">
+		<!-- 
+		高    		====          低
+		越简略      ====           越详细
+		error, warn, info, debug, trace -->
+		<level value="debug"></level>
+		<!-- 日志的输出目标 -->
+		<appender-ref ref="sample-log-console"/>
+	</logger>
+	
+	
+	<!-- 调试事务例子：
+	<logger name="org.springframework.transaction" additivity="false">
+		<level value="trace" />
+		<appender-ref ref="sample-log-console" />
+	</logger>
+	
+	<logger name="org.springframework.jdbc.datasource" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="sample-log-console" />
+	</logger>
+	 -->
+	
+	<!-- 调试缓存例子： -->
+	<logger name="org.springframework.cache" additivity="false">
+		<level value="error" />
+		<appender-ref ref="sample-log-console" />
+	</logger>
+	 
+	<!-- <logger name="org.springframework" additivity="false">
+		<level value="trace" />
+		<appender-ref ref="sample-log-console" />
+	</logger> -->
+	
+	
+
+
+	<!-- ===================================================================== -->
+	<!-- Root logger 所有logger的基类，没有定义的logger将会使用root logger -->
+	<!-- ===================================================================== -->
+	<root>
+		<level value="error" />
+		<appender-ref ref="sample-log-console" />
+	</root>
+
+</log4j:configuration>
